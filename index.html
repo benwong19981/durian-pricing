@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#11523A">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="SL Durian">
+<title>SL Durian Price Board</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="stylesheet" href="fonts.css">
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <img id="brandMark" src="logo-mark.png" alt="SL Durian">
+    <h1>SL Durian<small>尚榴一品 price board</small></h1>
+  </div>
+  <div class="tools">
+    <label for="pdate">Date</label>
+    <input type="date" id="pdate">
+    <label for="cur">Currency</label>
+    <input type="text" id="cur" value="RM" style="width:52px">
+    <button class="btn" id="btnSave">Save</button>
+    <button class="btn ghost" id="btnSaveAs">Save as</button>
+    <button class="btn ghost" id="btnOpen">Open database</button>
+    <button class="btn" id="btnPng">Price card PNG</button>
+    <button class="btn ghost" id="btnCsv">Export CSV</button>
+    <button class="btn ghost" id="btnPrint">Print</button>
+    <button class="btn ghost" id="btnReset">Reset to seed data</button>
+    <button class="btn ghost" id="btnInstall" hidden>Install app</button>
+    <input type="file" id="fileIn" accept=".xlsx,.xls" hidden>
+  </div>
+</header>
+
+<div class="dbbar">
+  <span>Database file</span>
+  <strong id="dbName">none yet</strong>
+  <span id="dbMode"></span>
+</div>
+
+<div class="strip">
+  <div class="set">
+    <span class="cap">Premium on whole fruit</span>
+    <div class="row">
+      <input type="number" id="premKg" value="8.00" min="0" step="0.5">
+      <span class="pill" data-cur>RM</span><span class="pill">per kg</span>
+    </div>
+  </div>
+  <div class="set">
+    <span class="cap">Premium on pulp</span>
+    <div class="row">
+      <input type="number" id="prem100" value="3.00" min="0" step="0.5">
+      <span class="pill" data-cur>RM</span><span class="pill">per 100 g</span>
+    </div>
+  </div>
+  <div class="set">
+    <span class="cap">Round prices</span>
+    <div class="row">
+      <select id="roundStep">
+        <option value="0">no rounding</option>
+        <option value="0.1">to 0.10</option>
+        <option value="0.5" selected>to 0.50</option>
+        <option value="1">to 1.00</option>
+        <option value="5">to 5.00</option>
+      </select>
+      <select id="roundDir">
+        <option value="up" selected>rounding up</option>
+        <option value="near">to nearest</option>
+      </select>
+    </div>
+  </div>
+  <div class="set" style="flex:1 1 260px">
+    <span class="cap">Grades, whole fruit only</span>
+    <div class="row">
+      <div class="grades" id="grades"></div>
+      <button class="btn pale" id="addGrade">Add grade</button>
+    </div>
+  </div>
+  <div class="set" style="flex:1 1 300px">
+    <span class="cap">Message on the price card</span>
+    <div class="row">
+      <input type="text" id="cardMsg" class="wide" value="WhatsApp us to order  ·  微信下单">
+      <label class="check"><input type="checkbox" id="bilingual" checked> Chinese labels</label>
+    </div>
+  </div>
+</div>
+
+<div class="tabs" role="tablist">
+  <button class="tab" id="tabWhole" role="tab" aria-selected="true" aria-controls="paneWhole">Whole fruit</button>
+  <button class="tab" id="tabPulp" role="tab" aria-selected="false" aria-controls="panePulp">Pulp</button>
+</div>
+
+<main>
+  <section id="paneWhole" role="tabpanel" aria-labelledby="tabWhole">
+    <div class="barrow">
+      <h2>Whole fruit, price per kg</h2>
+      <span style="flex:1"></span>
+      <button class="btn pale addVar">Add variety</button>
+    </div>
+    <div class="tablewrap" id="wrapWhole"><table id="tblWhole"><thead></thead><tbody></tbody></table></div>
+    <div class="cards" id="cardsWhole" hidden></div>
+    <p class="note">Selling price is <code>buying price + premium</code>. Leave a row's premium box empty to use the shared premium above.</p>
+  </section>
+
+  <section id="panePulp" role="tabpanel" aria-labelledby="tabPulp" hidden>
+    <div class="barrow">
+      <h2>Pulp, price per 100 g</h2>
+      <span style="flex:1"></span>
+      <button class="btn pale addVar">Add variety</button>
+    </div>
+    <div class="tablewrap" id="wrapPulp"><table id="tblPulp"><thead></thead><tbody></tbody></table></div>
+    <div class="cards" id="cardsPulp" hidden></div>
+    <p class="note" id="pulpNote"></p>
+  </section>
+</main>
+
+<script type="module" src="/src/main.ts"></script>
+</body>
+</html>

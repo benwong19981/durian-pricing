@@ -1,0 +1,23 @@
+{
+  "name": "sl-durian-price-board",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build && node scripts/build-sw.mjs",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "icons": "node scripts/make-icons.mjs"
+  },
+  "dependencies": {
+    "xlsx": "https://cdn.sheetjs.com/xlsx-latest/xlsx-latest.tgz"
+  },
+  "devDependencies": {
+    "sharp": "^0.35.4",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.21",
+    "vitest": "^2.1.9"
+  }
+}
